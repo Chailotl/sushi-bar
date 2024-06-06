@@ -3,6 +3,7 @@ package com.chailotl.sushi_bar.mixin;
 import blue.endless.jankson.Jankson;
 import com.chailotl.sushi_bar.owo.config.SushiConfigScreen;
 import com.chailotl.sushi_bar.owo.config.SushiModmenu;
+import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import io.wispforest.owo.config.ConfigWrapper;
 import io.wispforest.owo.config.ui.ConfigScreen;
 import net.fabricmc.api.EnvType;
@@ -15,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Consumer;
 
+@IfModLoaded(value = "owo-lib")
 @Mixin(ConfigWrapper.class)
 public class InjectConfigWrapper
 {
