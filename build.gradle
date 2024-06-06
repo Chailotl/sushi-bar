@@ -130,5 +130,6 @@ publishMods {
 			start = "1.20"
 			end = "1.20.4"
 		}
+		requires("fabric-api")
 	}
 }
