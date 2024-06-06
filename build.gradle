@@ -1,0 +1,133 @@
+plugins {
+	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'maven-publish'
+	id "me.modmuss50.mod-publish-plugin" version "0.5.1"
+}
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	// Add repositories to retrieve artifacts from in here.
+	// You should only use this when depending on other mods because
+	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
+	// for more information about repositories.
+	maven { url 'https://maven.wispforest.io' }
+}
+
+sourceSets {
+	testmod {
+		compileClasspath += main.compileClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
+}
+
+loom {
+	runs {
+		testmodClient {
+			client()
+			//ideConfigGenerated project.rootProject == project
+			name = "Testmod Client"
+			source sourceSets.testmod
+		}
+		testmodServer {
+			server()
+			//ideConfigGenerated project.rootProject == project
+			name = "Testmod Server"
+			source sourceSets.testmod
+		}
+	}
+}
+
+dependencies {
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// Fabric API. This is technically optional, but you probably want it anyway.
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	include "io.wispforest:owo-sentinel:${project.owo_version}"
+	annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_version}")
+
+	testmodImplementation sourceSets.main.output
+	testmodAnnotationProcessor "io.wispforest:owo-lib:${project.owo_version}"
+}
+
+processResources {
+	inputs.property "version", project.version
+	inputs.property "name", project.mod_name
+
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version,
+				"name": project.mod_name
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 17
+}
+
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.base.archivesName.get()}"}
+	}
+}
+
+// configure the maven publication
+publishing {
+	repositories {
+		maven {
+			name = "chaiMaven"
+			url = "https://maven.axoga.to/releases"
+			credentials(PasswordCredentials)
+			authentication {
+				basic(BasicAuthentication)
+			}
+		}
+	}
+	publications {
+		maven(MavenPublication) {
+			groupId = "com.chailotl"
+			artifactId = archivesBaseName
+			version = version
+			from components.java
+		}
+	}
+}
+
+publishMods {
+	File changelogFile = new File("CHANGELOG.md")
+
+	file = remapJar.archiveFile
+	changelog = changelogFile.exists() ? changelogFile.text : ""
+	type = STABLE
+	displayName = "${project.mod_name} ${project.mod_version}"
+	modLoaders.add("fabric")
+
+	modrinth {
+		accessToken = providers.gradleProperty("modrinth_token").get()
+		projectId = "tr2Mv6ke"
+		minecraftVersionRange {
+			start = "1.20"
+			end = "1.20.4"
+		}
+	}
+}

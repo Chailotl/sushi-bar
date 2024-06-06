@@ -1,0 +1,28 @@
+{
+	"schemaVersion": 1,
+	"id": "sushi_bar_testmod",
+	"version": "1.0.0",
+	"name": "Sushi Bar Testmod",
+	"description": "",
+	"authors": [
+		"Chai"
+	],
+	"license": "LGPL-3.0",
+	"icon": "assets/testmod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.chailotl.testmod.Main"
+		]
+	},
+	"mixins": [
+	],
+	"depends": {
+		"fabricloader": ">=0.15.7",
+		"minecraft": "~1.20",
+		"java": ">=17",
+		"fabric-api": "*",
+		"owo-lib": "^0.11.2",
+		"sushi_bar": "^0.1.0"
+	}
+}

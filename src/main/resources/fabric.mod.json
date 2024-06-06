@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "sushi_bar",
+	"version": "${version}",
+	"name": "${name}",
+	"description": "A library mod for Chai's mods",
+	"authors": [
+		"Chai"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/sushi-bar/",
+		"sources": "https://github.com/chailotl/sushi-bar",
+		"issues": "https://github.com/chailotl/sushi-bar/issues"
+	},
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.gg/SuZb3aJUCx"
+			},
+			"badges": [
+				"library"
+			]
+		}
+	},
+	"license": "LGPL-3.0",
+	"icon": "assets/sushi_bar/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.chailotl.sushi_bar.Main"
+		]
+	},
+	"mixins": [
+		"sushi_bar.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.7",
+		"minecraft": "~1.20",
+		"java": ">=17"
+	}
+}
