@@ -58,7 +58,6 @@ public class IdentifierListOptionContainer extends ListOptionContainer
 
 			final var box = new ConfigTextBox();
 			box.setText(backingList.get(i).toString());
-			Main.LOGGER.info("beep");
 			try
 			{
 				// I hate that I need to do this but thanks Mojank
