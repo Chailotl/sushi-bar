@@ -14,7 +14,7 @@ import io.wispforest.owo.ui.core.Sizing;
 import io.wispforest.owo.ui.core.VerticalAlignment;
 import io.wispforest.owo.ui.util.UISounds;
 import io.wispforest.owo.util.ReflectionUtils;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
@@ -61,15 +61,23 @@ public class IdentifierListOptionContainer extends ListOptionContainer
 			try
 			{
 				// I hate that I need to do this but thanks Mojank
+				Class<?> clazz = TextFieldWidget.class;
+
+				String setCursorToStart = Main.RESOLVER.mapMethodName(
+					"intermediary",
+					Main.RESOLVER.unmapClassName("intermediary", clazz.getName()),
+					"method_1870",
+					Main.preVersion ? "()V" : "(Z)V");
+
 				if (Main.preVersion)
 				{
 					//box.setCursorToStart();
-					ConfigTextBox.class.getMethod("setCursorToStart").invoke(box);
+					clazz.getMethod(setCursorToStart).invoke(box);
 				}
 				else
 				{
 					//box.setCursorToStart(false);
-					ConfigTextBox.class.getMethod("setCursorToStart", boolean.class).invoke(box, false);
+					clazz.getMethod(setCursorToStart, boolean.class).invoke(box, false);
 				}
 			}
 			catch (Exception e)
