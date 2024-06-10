@@ -74,7 +74,7 @@ public class IdentifierListOptionContainer extends ListOptionContainer
 			}
 			catch (Exception e)
 			{
-				Main.LOGGER.error("Something horrible has happened!");
+				Main.LOGGER.error(e.toString());
 			}
 			box.setDrawsBackground(false);
 			box.margins(Insets.vertical(2));
