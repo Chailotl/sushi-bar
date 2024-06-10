@@ -2,6 +2,7 @@ package com.chailotl.testmod;
 
 import com.chailotl.sushi_bar.owo.config.SushiModmenu;
 import io.wispforest.owo.config.annotation.Config;
+import io.wispforest.owo.config.annotation.Nest;
 import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
@@ -18,4 +19,16 @@ public class ConfigModel
 		new Identifier("minecraft:dripstone_caves"),
 		new Identifier("minecraft:deep_dark")
 	);
+
+	@Nest
+	public Struct struct = new Struct();
+
+	public static class Struct
+	{
+		public List<Identifier> ids = Arrays.asList(
+			new Identifier("minecraft:lush_caves"),
+			new Identifier("minecraft:dripstone_caves"),
+			new Identifier("minecraft:deep_dark")
+		);
+	}
 }
