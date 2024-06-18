@@ -2,10 +2,11 @@ plugins {
 	id 'fabric-loom' version '1.6-SNAPSHOT'
 	id 'maven-publish'
 	id "me.modmuss50.mod-publish-plugin" version "0.5.1"
+	id "dev.kikugie.stonecutter"
 }
 
 archivesBaseName = project.archives_base_name
-version = project.mod_version
+version = "${project.mod_version}+${project.minecraft_version}"
 group = project.maven_group
 
 base {
@@ -67,14 +68,22 @@ dependencies {
 	testmodAnnotationProcessor "io.wispforest:owo-lib:${project.owo_version}"
 }
 
-processResources {
-	inputs.property "version", project.version
-	inputs.property "name", project.mod_name
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version,
-				"name": project.mod_name
+loom {
+	runConfigs.all {
+		ideConfigGenerated true // Run configurations are not created for subprojects by default
+		runDir "../../run" // Use a shared run folder and just create separate worlds
 	}
+}
+
+processResources {
+	def map = [
+		"version": version,
+		"name": project.mod_name,
+		"minecraft_version": project.minecraft_version
+	]
+
+	inputs.properties(map)
+	filesMatching("fabric.mod.json") { expand(map) }
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -125,15 +134,15 @@ publishMods {
 	file = remapJar.archiveFile
 	changelog = changelogFile.exists() ? changelogFile.text : ""
 	type = STABLE
-	displayName = "${project.mod_name} ${project.mod_version}"
+	displayName = "${project.mod_name} ${project.mod_version}+${project.minecraft_version}"
 	modLoaders.add("fabric")
 
 	modrinth {
-		accessToken = providers.gradleProperty("modrinth_token").get()
+		accessToken = providers.gradleProperty("modrinth_toke").getOrElse("")
 		projectId = "tr2Mv6ke"
 		minecraftVersionRange {
-			start = "1.20"
-			end = "1.20.4"
+			start = project.hasProperty("minecraft_version_min") ? project.minecraft_version_min : project.minecraft_version
+			end = project.minecraft_version_max
 		}
 		requires("fabric-api")
 	}
