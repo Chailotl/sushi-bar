@@ -138,7 +138,7 @@ publishMods {
 	modLoaders.add("fabric")
 
 	modrinth {
-		accessToken = providers.gradleProperty("modrinth_toke").getOrElse("")
+		accessToken = providers.gradleProperty("modrinth_token").getOrElse("")
 		projectId = "tr2Mv6ke"
 		minecraftVersionRange {
 			start = project.hasProperty("minecraft_version_min") ? project.minecraft_version_min : project.minecraft_version
