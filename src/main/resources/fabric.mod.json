@@ -38,6 +38,5 @@
 		"minecraft": "~1.20",
 		"java": ">=17",
 		"fabric-api": "*"
-	},
-	"plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin"
+	}
 }
