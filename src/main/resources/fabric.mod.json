@@ -38,5 +38,8 @@
 		"minecraft": "~${minecraft_version}",
 		"java": ">=17",
 		"fabric-api": "*"
+	},
+	"breaks": {
+		"lavender": "0.1.0-pre.18+1.20"
 	}
 }
