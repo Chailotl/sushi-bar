@@ -5,8 +5,9 @@ plugins {
 	id "dev.kikugie.stonecutter"
 }
 
+minecraftVersion = project.hasProperty("minecraft_version_min") ? project.minecraft_version_min : project.minecraft_version
 archivesBaseName = project.archives_base_name
-version = "${project.mod_version}+${project.minecraft_version}"
+version = "${project.mod_version}+${minecraftVersion}"
 group = project.maven_group
 
 base {
@@ -134,14 +135,14 @@ publishMods {
 	file = remapJar.archiveFile
 	changelog = changelogFile.exists() ? changelogFile.text : ""
 	type = STABLE
-	displayName = "${project.mod_name} ${project.mod_version}+${project.minecraft_version}"
+	displayName = "${project.mod_name} ${version}"
 	modLoaders.add("fabric")
 
 	modrinth {
 		accessToken = providers.gradleProperty("modrinth_token").getOrElse("")
 		projectId = "tr2Mv6ke"
 		minecraftVersionRange {
-			start = project.hasProperty("minecraft_version_min") ? project.minecraft_version_min : project.minecraft_version
+			start = minecraftVersion
 			end = project.minecraft_version_max
 		}
 		requires("fabric-api")
