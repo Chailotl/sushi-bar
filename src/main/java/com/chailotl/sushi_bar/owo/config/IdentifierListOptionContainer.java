@@ -14,10 +14,13 @@ import io.wispforest.owo.ui.core.Sizing;
 import io.wispforest.owo.ui.core.VerticalAlignment;
 import io.wispforest.owo.ui.util.UISounds;
 import io.wispforest.owo.util.ReflectionUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 public class IdentifierListOptionContainer extends ListOptionContainer
 {
 	public IdentifierListOptionContainer(Option option)

@@ -4,14 +4,14 @@
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"lavender.InjectBook",
-		"lavender.InjectBookLoader",
-		"owo.config.InjectConfigWrapper"
+		"lavender.InjectBookLoader"
 	],
 	"injectors": {
 		"defaultRequire": 1
 	},
 	"client": [
-		"lavender.InjectLavenderBookScreen"
+		"lavender.InjectLavenderBookScreen",
+		"owo.config.InjectConfigWrapper"
 	],
 	"plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin"
 }

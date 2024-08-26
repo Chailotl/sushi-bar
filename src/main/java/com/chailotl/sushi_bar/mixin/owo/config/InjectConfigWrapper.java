@@ -7,6 +7,7 @@ import com.moulberry.mixinconstraints.annotations.IfModLoaded;
 import io.wispforest.owo.config.ConfigWrapper;
 import io.wispforest.owo.config.ui.ConfigScreen;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Consumer;
 
+@Environment(EnvType.CLIENT)
 @IfModLoaded(value = "owo-lib")
 @Mixin(ConfigWrapper.class)
 public class InjectConfigWrapper

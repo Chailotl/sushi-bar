@@ -4,6 +4,8 @@ import io.wispforest.owo.config.ConfigWrapper;
 import io.wispforest.owo.config.ui.ConfigScreen;
 import io.wispforest.owo.config.ui.OptionComponentFactory;
 import io.wispforest.owo.util.ReflectionUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -11,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Field;
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 public class SushiConfigScreen extends ConfigScreen
 {
 	public SushiConfigScreen(Identifier modelId, ConfigWrapper<?> config, @Nullable Screen parent)

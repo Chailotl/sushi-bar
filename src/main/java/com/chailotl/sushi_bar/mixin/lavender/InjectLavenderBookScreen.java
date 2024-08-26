@@ -11,6 +11,8 @@ import io.wispforest.lavender.md.compiler.BookCompiler;
 import io.wispforest.lavendermd.MarkdownFeature;
 import io.wispforest.lavendermd.MarkdownProcessor;
 import io.wispforest.owo.ui.core.ParentComponent;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @IfModLoaded(value = "lavender")
 @Mixin(LavenderBookScreen.class)
 public class InjectLavenderBookScreen
